@@ -1,5 +1,5 @@
 import type { Position as _Position } from "geojson";
-import type { Point, Position } from "./main.ts";
+import type { Point, Position, Position2D, Position3D } from "./main.ts";
 
 const position = [123, 456] satisfies Position;
 
@@ -26,3 +26,16 @@ function flip({ coordinates: [x, y, z], ...rest }: Point): Point {
 }
 
 flip(point);
+
+const two: Point<Position2D> = {
+  type: "Point",
+  coordinates: [123, 456],
+};
+
+const three: Point<Position3D> = {
+  type: "Point",
+  coordinates: [123, 456, 789],
+};
+
+two.bbox?.[2]; // east
+three.bbox?.[5]; // top

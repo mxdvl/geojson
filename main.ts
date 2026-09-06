@@ -1,32 +1,42 @@
-type Two = readonly [longitude: number, latitude: number];
-type Three = readonly [longitude: number, latitude: number, altitude: number];
+export type Position2D = readonly [
+  longitude: number,
+  latitude: number,
+];
+
+export type Position3D = readonly [
+  longitude: number,
+  latitude: number,
+  altitude: number,
+];
 
 /** Coordinates with either 2 or 3 dimensions, as per [§3.1.1](https://www.rfc-editor.org/info/rfc7946/#section-3.1.1) */
-export type Position = Two | Three;
+export type Position = Position2D | Position3D;
+
+export type BBox2D = readonly [
+  west: number,
+  south: number,
+  east: number,
+  north: number,
+];
+export type BBox3D = readonly [
+  west: number,
+  south: number,
+  east: number,
+  north: number,
+  bottom: number,
+  top: number,
+];
 
 /**
  * Bounding box as per [§5](https://www.rfc-editor.org/info/rfc7946/#section-5)
  */
-export type BBox =
-  | readonly [
-    west: number,
-    south: number,
-    east: number,
-    north: number,
-  ]
-  | readonly [
-    west: number,
-    south: number,
-    east: number,
-    north: number,
-    bottom: number,
-    top: number,
-  ];
+export type BBox<P extends Position = Position> = P extends Position2D ? BBox2D
+  : BBox3D;
 
 /**
  * The base GeoJSON object as per [§3](https://www.rfc-editor.org/info/rfc7946/#section-3).
  */
-export interface GeoJsonObject {
+export interface GeoJsonObject<P extends Position = Position> {
   /**
    * Specifies the type of GeoJSON object.
    */
@@ -34,7 +44,7 @@ export interface GeoJsonObject {
   /**
    * Optional bounding box as per [§5](https://www.rfc-editor.org/info/rfc7946/#section-5).
    */
-  readonly bbox?: BBox;
+  readonly bbox?: BBox<P>;
 }
 
 export type GeoJsonTypes = GeoJSON["type"];
@@ -49,7 +59,7 @@ export type Geometry = Point;
 /**
  * as per [§3.1.2](https://www.rfc-editor.org/info/rfc7946/#section-3.1.2).
  */
-export interface Point extends GeoJsonObject {
+export interface Point<P extends Position = Position> extends GeoJsonObject<P> {
   readonly type: "Point";
-  readonly coordinates: Position;
+  readonly coordinates: P;
 }
