@@ -57,7 +57,8 @@ export type GeoJSON<P extends Position = Position> = Geometry<P>;
 export type Geometry<P extends Position = Position> =
   | Point<P>
   | MultiPoint<P>
-  | LineString<P>;
+  | LineString<P>
+  | MultiLineString<P>;
 
 /**
  * as per [§3.1.2](https://www.rfc-editor.org/info/rfc7946/#section-3.1.2).
@@ -83,4 +84,10 @@ export interface LineString<P extends Position = Position>
   extends GeoJsonObject<P> {
   readonly type: "LineString";
   readonly coordinates: readonly [P, P, ...P[]];
+}
+
+export interface MultiLineString<P extends Position = Position>
+  extends GeoJsonObject<P> {
+  readonly type: "MultiLineString";
+  readonly coordinates: readonly LineString<P>["coordinates"][];
 }

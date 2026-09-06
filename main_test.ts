@@ -1,5 +1,12 @@
 import type { Position as _Position } from "geojson";
-import type { Point, Position, Position2D, Position3D } from "./main.ts";
+import type {
+  LineString,
+  MultiLineString,
+  Point,
+  Position,
+  Position2D,
+  Position3D,
+} from "./main.ts";
 
 const position = [123, 456] satisfies Position;
 
@@ -39,3 +46,13 @@ const three: Point<Position3D> = {
 
 two.bbox?.[2]; // east
 three.bbox?.[5]; // top
+
+const lineString: LineString = {
+  type: "LineString",
+  coordinates: [[12, 34], [56, 78]],
+};
+
+const _multiLineString: MultiLineString = {
+  type: "MultiLineString",
+  coordinates: [lineString.coordinates],
+};
