@@ -49,12 +49,12 @@ export interface GeoJsonObject<P extends Position = Position> {
 
 export type GeoJsonTypes = GeoJSON["type"];
 
-export type GeoJSON = Geometry;
+export type GeoJSON<P extends Position = Position> = Geometry<P>;
 
 /**
  * as per [§3.1](https://www.rfc-editor.org/info/rfc7946/#section-3.1).
  */
-export type Geometry = Point;
+export type Geometry<P extends Position = Position> = Point<P>;
 
 /**
  * as per [§3.1.2](https://www.rfc-editor.org/info/rfc7946/#section-3.1.2).
