@@ -17,3 +17,12 @@ const point: Point = {
 
 // @ts-expect-error -- this is immutable
 point.type = "Point";
+
+function flip({ coordinates: [x, y, z], ...rest }: Point): Point {
+  return {
+    ...rest,
+    coordinates: z === undefined ? [x, -y] : [x, -y, z],
+  };
+}
+
+flip(point);
