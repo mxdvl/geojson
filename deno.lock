@@ -1,0 +1,21 @@
+{
+  "version": "5",
+  "specifiers": {
+    "npm:@types/geojson@^7946.0.16": "7946.0.16",
+    "npm:geojson@0.5": "0.5.0"
+  },
+  "npm": {
+    "@types/geojson@7946.0.16": {
+      "integrity": "sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg=="
+    },
+    "geojson@0.5.0": {
+      "integrity": "sha512-/Bx5lEn+qRF4TfQ5aLu6NH+UKtvIv7Lhc487y/c8BdludrCTpiWf9wyI0RTyqg49MFefIAvFDuEi5Dfd/zgNxQ=="
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "npm:@types/geojson@^7946.0.16",
+      "npm:geojson@0.5"
+    ]
+  }
+}

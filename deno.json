@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "@types/geojson": "npm:@types/geojson@^7946.0.16",
+    "geojson": "npm:geojson@^0.5.0"
+  }
+}
