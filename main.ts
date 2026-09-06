@@ -54,7 +54,7 @@ export type GeoJSON<P extends Position = Position> = Geometry<P>;
 /**
  * as per [§3.1](https://www.rfc-editor.org/info/rfc7946/#section-3.1).
  */
-export type Geometry<P extends Position = Position> = Point<P>;
+export type Geometry<P extends Position = Position> = Point<P> | MultiPoint<P>;
 
 /**
  * as per [§3.1.2](https://www.rfc-editor.org/info/rfc7946/#section-3.1.2).
@@ -62,4 +62,13 @@ export type Geometry<P extends Position = Position> = Point<P>;
 export interface Point<P extends Position = Position> extends GeoJsonObject<P> {
   readonly type: "Point";
   readonly coordinates: P;
+}
+
+/**
+ * as per [§3.1.3](https://www.rfc-editor.org/info/rfc7946/#section-3.1.3).
+ */
+export interface MultiPoint<P extends Position = Position>
+  extends GeoJsonObject<P> {
+  readonly type: "MultiPoint";
+  readonly coordinates: readonly P[];
 }
