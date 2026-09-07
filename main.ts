@@ -49,10 +49,11 @@ export interface GeoJsonObject<P extends Position = Position> {
 
 export type GeoJsonTypes = GeoJSON["type"];
 
-export type GeoJSON<P extends Position = Position> = Geometry<P>;
+export type GeoJSON<P extends Position = Position> = Geometry<P> | GeometryCollection<P>;
 
 /**
- * as per [§3.1](https://www.rfc-editor.org/info/rfc7946/#section-3.1).
+ * as per [§3.1](https://www.rfc-editor.org/info/rfc7946/#section-3.1),
+ * excluding {@link GeometryCollection} — see {@link GeoJSON} for the full union
  */
 export type Geometry<P extends Position = Position> =
   | Point<P>
@@ -63,7 +64,7 @@ export type Geometry<P extends Position = Position> =
   | MultiPolygon<P>;
 
 /**
- * as per [§3.1.2](https://www.rfc-editor.org/info/rfc7946/#section-3.1.2).
+ * as per [§3.1.2](https://www.rfc-editor.org/info/rfc7946/#section-3.1.2)
  */
 export interface Point<P extends Position = Position> extends GeoJsonObject<P> {
   readonly type: "Point";
@@ -71,7 +72,7 @@ export interface Point<P extends Position = Position> extends GeoJsonObject<P> {
 }
 
 /**
- * as per [§3.1.3](https://www.rfc-editor.org/info/rfc7946/#section-3.1.3).
+ * as per [§3.1.3](https://www.rfc-editor.org/info/rfc7946/#section-3.1.3)
  */
 export interface MultiPoint<P extends Position = Position>
   extends GeoJsonObject<P> {
@@ -80,7 +81,7 @@ export interface MultiPoint<P extends Position = Position>
 }
 
 /**
- * as per [§3.1.4](https://www.rfc-editor.org/info/rfc7946/#section-3.1.4).
+ * as per [§3.1.4](https://www.rfc-editor.org/info/rfc7946/#section-3.1.4)
  */
 export interface LineString<P extends Position = Position>
   extends GeoJsonObject<P> {
@@ -89,7 +90,7 @@ export interface LineString<P extends Position = Position>
 }
 
 /**
- * as per [§3.1.5](https://www.rfc-editor.org/info/rfc7946/#section-3.1.5).
+ * as per [§3.1.5](https://www.rfc-editor.org/info/rfc7946/#section-3.1.5)
  */
 export interface MultiLineString<P extends Position = Position>
   extends GeoJsonObject<P> {
@@ -101,7 +102,7 @@ export interface MultiLineString<P extends Position = Position>
 type LinearRing<P extends Position = Position> = readonly [P, P, P, P, ...P[]];
 
 /**
- * as per [§3.1.6](https://www.rfc-editor.org/info/rfc7946/#section-3.1.6).
+ * as per [§3.1.6](https://www.rfc-editor.org/info/rfc7946/#section-3.1.6)
  */
 export interface Polygon<P extends Position = Position>
   extends GeoJsonObject<P> {
@@ -111,10 +112,20 @@ export interface Polygon<P extends Position = Position>
 }
 
 /**
- * as per [§3.1.7](https://www.rfc-editor.org/info/rfc7946/#section-3.1.7).
+ * as per [§3.1.7](https://www.rfc-editor.org/info/rfc7946/#section-3.1.7)
  */
 export interface MultiPolygon<P extends Position = Position>
   extends GeoJsonObject<P> {
   readonly type: "MultiPolygon";
   readonly coordinates: readonly Polygon<P>["coordinates"][];
+}
+
+/**
+ * as per [§3.1.8](https://www.rfc-editor.org/info/rfc7946/#section-3.1.8),
+ * nesting collections is discouraged by spec, and not permitted here
+ */
+export interface GeometryCollection<P extends Position = Position>
+  extends GeoJsonObject<P> {
+  readonly type: "GeometryCollection";
+  readonly geometries: readonly Geometry<P>[];
 }
