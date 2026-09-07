@@ -1,8 +1,21 @@
 {
   "version": "5",
   "specifiers": {
+    "jsr:@std/assert@^1.0.17": "1.0.19",
+    "jsr:@std/internal@^1.0.12": "1.0.13",
     "npm:@types/geojson@^7946.0.16": "7946.0.16",
     "npm:geojson@0.5": "0.5.0"
+  },
+  "jsr": {
+    "@std/assert@1.0.19": {
+      "integrity": "eaada96ee120cb980bc47e040f82814d786fe8162ecc53c91d8df60b8755991e",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/internal@1.0.13": {
+      "integrity": "2f9546691d4ac2d32859c82dff284aaeac980ddeca38430d07941e7e288725c0"
+    }
   },
   "npm": {
     "@types/geojson@7946.0.16": {
@@ -14,6 +27,7 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@std/assert@^1.0.17",
       "npm:@types/geojson@^7946.0.16",
       "npm:geojson@0.5"
     ]
