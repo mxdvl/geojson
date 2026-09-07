@@ -86,6 +86,9 @@ export interface LineString<P extends Position = Position>
   readonly coordinates: readonly [P, P, ...P[]];
 }
 
+/**
+ * as per [§3.1.5](https://www.rfc-editor.org/info/rfc7946/#section-3.1.5).
+ */
 export interface MultiLineString<P extends Position = Position>
   extends GeoJsonObject<P> {
   readonly type: "MultiLineString";
