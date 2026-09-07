@@ -44,7 +44,13 @@ type GeoJsonTypes = GeoJSON["type"];
 /**
  * as per [§3](https://www.rfc-editor.org/info/rfc7946/#section-3)
  */
-export type GeoJSON<P extends Position = Position> = GeometryObject<P>;
+export type GeoJSON<
+  P extends Position = Position,
+  R extends FeatureProperties = FeatureProperties,
+> =
+  | GeometryObject<P>
+  | Feature<FeatureGeometry<P>, R>
+  | FeatureCollection<FeatureGeometry<P>, R>;
 
 /**
  * as per [§3.1](https://www.rfc-editor.org/info/rfc7946/#section-3.1)
@@ -129,4 +135,33 @@ export interface GeometryCollection<P extends Position = Position>
   extends GeoJsonObject<P> {
   readonly type: "GeometryCollection";
   readonly geometries: readonly Geometry<P>[];
+}
+
+type FeatureGeometry<P extends Position = Position> = Geometry<P> | null;
+
+/** normalise `null` to an empty object `{}` */
+type FeatureProperties = Record<string, unknown>;
+
+/**
+ * as per [§3.2](https://www.rfc-editor.org/info/rfc7946/#section-3.2)
+ */
+export interface Feature<
+  G extends FeatureGeometry = FeatureGeometry,
+  R extends FeatureProperties = FeatureProperties,
+> extends GeoJsonObject {
+  readonly type: "Feature";
+  readonly geometry: G;
+  readonly id?: string | number;
+  readonly properties: R;
+}
+
+/**
+ * as per [§3.3](https://www.rfc-editor.org/info/rfc7946/#section-3.3)
+ */
+export interface FeatureCollection<
+  G extends FeatureGeometry = FeatureGeometry,
+  R extends FeatureProperties = FeatureProperties,
+> extends GeoJsonObject {
+  readonly type: "FeatureCollection";
+  readonly features: readonly Feature<G, R>[];
 }
