@@ -12,27 +12,6 @@ export type Position3D = readonly [
 /** Coordinates with either 2 or 3 dimensions, as per [§3.1.1](https://www.rfc-editor.org/info/rfc7946/#section-3.1.1) */
 export type Position = Position2D | Position3D;
 
-export type BBox2D = readonly [
-	west: number,
-	south: number,
-	east: number,
-	north: number,
-];
-export type BBox3D = readonly [
-	west: number,
-	south: number,
-	east: number,
-	north: number,
-	bottom: number,
-	top: number,
-];
-
-/**
- * Bounding box as per [§5](https://www.rfc-editor.org/info/rfc7946/#section-5)
- */
-export type BBox<P extends Position = Position> = P extends Position2D ? BBox2D
-	: BBox3D;
-
 /** the shared base of every {@link GeoJSON} object, as per [§3](https://www.rfc-editor.org/info/rfc7946/#section-3) */
 export interface GeoJsonObject<P extends Position = Position> {
 	readonly type: GeoJsonTypes;
@@ -159,3 +138,24 @@ export interface FeatureCollection<
 	readonly type: "FeatureCollection";
 	readonly features: readonly Feature<G, R>[];
 }
+
+export type BBox2D = readonly [
+	west: number,
+	south: number,
+	east: number,
+	north: number,
+];
+export type BBox3D = readonly [
+	west: number,
+	south: number,
+	east: number,
+	north: number,
+	bottom: number,
+	top: number,
+];
+
+/**
+ * Bounding box as per [§5](https://www.rfc-editor.org/info/rfc7946/#section-5)
+ */
+export type BBox<P extends Position = Position> = P extends Position2D ? BBox2D
+	: BBox3D;
