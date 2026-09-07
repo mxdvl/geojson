@@ -1,3 +1,6 @@
 # IDEs
 .zed/
 .vscode/
+
+# AI
+.claude
