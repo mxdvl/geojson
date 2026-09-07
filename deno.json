@@ -1,4 +1,25 @@
 {
+  "name": "@mxdvl/geojson",
+  "version": "0.0.1",
+  "exports": "./src/main.ts",
+  "tasks": {
+    "test": "deno test -A",
+    "check": "deno fmt --check && deno lint && deno check src"
+  },
+  "compilerOptions": {
+    "strict": true,
+    "useUnknownInCatchVariables": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "fmt": {
+    "include": ["src"],
+    "lineWidth": 120,
+    "indentWidth": 4,
+    "useTabs": true
+  },
+  "lint": {
+    "include": ["src"]
+  },
   "imports": {
     "@types/geojson": "npm:@types/geojson@^7946.0.16",
     "geojson": "npm:geojson@^0.5.0"
