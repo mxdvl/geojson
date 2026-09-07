@@ -58,7 +58,8 @@ export type Geometry<P extends Position = Position> =
   | Point<P>
   | MultiPoint<P>
   | LineString<P>
-  | MultiLineString<P>;
+  | MultiLineString<P>
+  | Polygon<P>;
 
 /**
  * as per [§3.1.2](https://www.rfc-editor.org/info/rfc7946/#section-3.1.2).
@@ -93,4 +94,17 @@ export interface MultiLineString<P extends Position = Position>
   extends GeoJsonObject<P> {
   readonly type: "MultiLineString";
   readonly coordinates: readonly LineString<P>["coordinates"][];
+}
+
+/** the first and last value must be identical, follows right-hand rule */
+type LinearRing<P extends Position = Position> = readonly [P, P, P, P, ...P[]];
+
+/**
+ * as per [§3.1.6](https://www.rfc-editor.org/info/rfc7946/#section-3.1.6).
+ */
+export interface Polygon<P extends Position = Position>
+  extends GeoJsonObject<P> {
+  readonly type: "Polygon";
+  /** the first {@link LinearRing} must be an outer counterclockwise ring, the rest are inner clockwise rings */
+  readonly coordinates: readonly LinearRing<P>[];
 }
