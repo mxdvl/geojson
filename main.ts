@@ -33,21 +33,13 @@ export type BBox3D = readonly [
 export type BBox<P extends Position = Position> = P extends Position2D ? BBox2D
   : BBox3D;
 
-/**
- * The base GeoJSON object as per [§3](https://www.rfc-editor.org/info/rfc7946/#section-3).
- */
+/** the shared base of every {@link GeoJSON} object, as per [§3](https://www.rfc-editor.org/info/rfc7946/#section-3) */
 export interface GeoJsonObject<P extends Position = Position> {
-  /**
-   * Specifies the type of GeoJSON object.
-   */
   readonly type: GeoJsonTypes;
-  /**
-   * Optional bounding box as per [§5](https://www.rfc-editor.org/info/rfc7946/#section-5).
-   */
   readonly bbox?: BBox<P>;
 }
 
-export type GeoJsonTypes = GeoJSON["type"];
+type GeoJsonTypes = GeoJSON["type"];
 
 /**
  * as per [§3](https://www.rfc-editor.org/info/rfc7946/#section-3)
